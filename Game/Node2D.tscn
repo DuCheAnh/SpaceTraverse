@@ -1,0 +1,402 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Strip And GIF/space1_4-frames.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/SpaceShooterRedux/Backgrounds/purple.png" type="Texture" id=3]
+[ext_resource path="res://Nodes/BlackHole.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/SpaceShooterRedux/PNG/Effects/star1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/SpaceShooterRedux/PNG/UI/playerLife1_blue.png" type="Texture" id=6]
+[ext_resource path="res://Nodes/scripts/Main.gd" type="Script" id=7]
+[ext_resource path="res://Nodes/scripts/Shake.gd" type="Script" id=8]
+[ext_resource path="res://Sprites/SpaceShooterRedux/Bonus/kenvector_future_thin.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Nodes/HealthBar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://audio/Alone Against Enemy.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Nodes/scripts/MenuRect.gd" type="Script" id=12]
+[ext_resource path="res://audio/start.wav" type="AudioStream" id=13]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "purple",
+"speed": 5.0
+} ]
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 1, 1, 1, 1, 0.368627, 0.247059, 0.419608, 1 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 60
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 50
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=15]
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 32
+font_data = ExtResource( 9 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1.85406, 1.05946 )
+scale = Vector2( 1.75781, 3.16406 )
+frames = SubResource( 5 )
+animation = "purple"
+centered = false
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 230, 0 )
+amount = 80
+lifetime = 10.0
+texture = ExtResource( 5 )
+emission_shape = 2
+emission_rect_extents = Vector2( 225, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 0.56
+angular_velocity = 45.0
+angular_velocity_random = 0.6
+scale_amount = 0.2
+scale_amount_random = 0.7
+color_ramp = SubResource( 6 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 180, 270 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+
+[node name="Shake" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="Tween" type="Tween" parent="Shake"]
+
+[node name="Asteroids" type="Node2D" parent="."]
+
+[node name="BuffTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="PowerUps" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureRect" parent="CanvasLayer/Control"]
+margin_top = 3.0
+margin_right = 33.0
+margin_bottom = 29.0
+texture = ExtResource( 6 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PowerBar" parent="CanvasLayer/Control" instance=ExtResource( 10 )]
+margin_left = 0.0498888
+margin_top = 40.0
+margin_right = 146.05
+margin_bottom = 59.0
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+pause_mode = 2
+margin_left = 380.0
+margin_right = 450.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 7 )
+text = "Pause"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Point" type="Label" parent="CanvasLayer/Control"]
+margin_left = 344.0
+margin_top = 40.0
+margin_right = 448.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 8 )
+text = "point"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+margin_left = 205.0
+margin_top = 30.0
+margin_right = 245.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 9 )
+text = "font"
+align = 1
+valign = 1
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuRect" type="ColorRect" parent="CanvasLayer/Control2"]
+pause_mode = 2
+visible = false
+margin_right = 450.0
+margin_bottom = 800.0
+color = Color( 0.0392157, 0.0392157, 0.0392157, 0.537255 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Control2/MenuRect"]
+anchor_left = 0.5
+anchor_top = 0.154
+anchor_right = 0.5
+anchor_bottom = 0.154
+margin_left = -126.0
+margin_top = -13.2
+margin_right = 126.0
+margin_bottom = 54.8
+custom_fonts/font = SubResource( 10 )
+text = "PAUSED"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/Control2/MenuRect"]
+margin_left = 115.0
+margin_top = 250.0
+margin_right = 335.0
+margin_bottom = 310.0
+custom_fonts/font = SubResource( 11 )
+text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HomeButton" type="Button" parent="CanvasLayer/Control2/MenuRect"]
+anchor_top = -0.00625008
+anchor_bottom = -0.00625008
+margin_left = 115.0
+margin_top = 345.0
+margin_right = 335.0
+margin_bottom = 405.0
+custom_fonts/font = SubResource( 11 )
+text = "Home"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control2/MenuRect"]
+anchor_top = -0.00625008
+anchor_bottom = -0.00625008
+margin_left = 115.0
+margin_top = 435.0
+margin_right = 335.0
+margin_bottom = 495.0
+custom_fonts/font = SubResource( 11 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoseRect" type="ColorRect" parent="CanvasLayer/Control2"]
+visible = false
+margin_right = 450.0
+margin_bottom = 841.0
+color = Color( 0.0392157, 0.0392157, 0.0392157, 0.537255 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Control2/LoseRect"]
+margin_left = 5.0
+margin_top = 110.0
+margin_right = 449.0
+margin_bottom = 167.0
+custom_fonts/font = SubResource( 12 )
+text = "Ship destroyed"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RetryButton" type="Button" parent="CanvasLayer/Control2/LoseRect"]
+margin_left = 115.0
+margin_top = 250.0
+margin_right = 335.0
+margin_bottom = 310.0
+custom_fonts/font = SubResource( 13 )
+text = "Retry"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HomeButton" type="Button" parent="CanvasLayer/Control2/LoseRect"]
+margin_left = 115.0
+margin_top = 340.0
+margin_right = 335.0
+margin_bottom = 400.0
+custom_fonts/font = SubResource( 13 )
+text = "Home"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control2/LoseRect"]
+margin_left = 115.0
+margin_top = 430.0
+margin_right = 335.0
+margin_bottom = 490.0
+custom_fonts/font = SubResource( 13 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointsLabel" type="Label" parent="CanvasLayer/Control2/LoseRect"]
+margin_top = 170.0
+margin_right = 450.0
+margin_bottom = 206.0
+custom_fonts/font = SubResource( 14 )
+text = "123"
+align = 1
+valign = 1
+
+[node name="HiPointLabel" type="Label" parent="CanvasLayer/Control2/LoseRect"]
+margin_top = 200.0
+margin_right = 450.0
+margin_bottom = 236.0
+custom_fonts/font = SubResource( 14 )
+text = "123"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartRec" type="ColorRect" parent="CanvasLayer/Control2"]
+margin_left = 85.0
+margin_top = 400.0
+margin_right = 365.0
+margin_bottom = 557.0
+color = Color( 0.717647, 0.721569, 0.729412, 0.407843 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Control2/StartRec"]
+margin_left = -1.18921
+margin_top = -1.18918
+margin_right = 278.811
+margin_bottom = 58.8108
+custom_fonts/font = SubResource( 15 )
+text = "Hold to Fly
+Swipe to lean and 
+ fly away from the
+Inevitable death"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control2/StartRec"]
+pause_mode = 2
+margin_left = 55.5946
+margin_top = 90.7
+margin_right = 235.595
+margin_bottom = 132.7
+custom_fonts/font = SubResource( 16 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="startaudio" type="AudioStreamPlayer" parent="CanvasLayer/Control2/StartRec"]
+stream = ExtResource( 13 )
+volume_db = -5.0
+
+[node name="BlackHole" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 776.591 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -7.0
+[connection signal="health_changed" from="Player" to="." method="_on_Player_health_changed"]
+[connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="BuffTimer" to="." method="_on_BuffTimer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_Buttonpause_pressed"]
+[connection signal="button_pressed" from="CanvasLayer/Control2/MenuRect" to="." method="_on_MenuRect_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/ResumeButton" to="CanvasLayer/Control2/MenuRect" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/HomeButton" to="CanvasLayer/Control2/MenuRect" method="_on_HomeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/QuitButton" to="CanvasLayer/Control2/MenuRect" method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/StartRec/StartButton" to="." method="_on_Button_pressed"]

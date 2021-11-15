@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Sprites/SpaceShooterRedux/PNG/Lasers/laserBlue07.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/SpaceShooterRedux/PNG/Lasers/laserBlue06.png" type="Texture" id=2]
+[ext_resource path="res://Nodes/scripts/Bullet.gd" type="Script" id=3]
+[ext_resource path="res://audio/laser2.wav" type="AudioStream" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 1.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 12.6419
+height = 23.8395
+
+[node name="Bullet" type="Area2D" groups=[
+"damagable",
+]]
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.5, 0 )
+frames = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+position = Vector2( 0.0496068, 0.942519 )
+scale = Vector2( 0.687481, 1.86811 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+[connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
