@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Strip And GIF/space1_4-frames.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/SpaceShooterRedux/PNG/UI/playerLife1_blue.png" type="Texture" id=6]
 [ext_resource path="res://Nodes/scripts/Main.gd" type="Script" id=7]
 [ext_resource path="res://Nodes/scripts/Shake.gd" type="Script" id=8]
+[ext_resource path="res://audio/click.wav" type="AudioStream" id=9]
 [ext_resource path="res://Nodes/HealthBar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://audio/Alone Against Enemy.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Nodes/scripts/MenuRect.gd" type="Script" id=12]
@@ -481,6 +482,7 @@ __meta__ = {
 }
 
 [node name="startaudio" type="AudioStreamPlayer" parent="CanvasLayer/Control2/StartRec"]
+pause_mode = 2
 stream = ExtResource( 13 )
 volume_db = -5.0
 
@@ -491,16 +493,27 @@ position = Vector2( 0, 776.591 )
 stream = ExtResource( 11 )
 volume_db = -7.0
 
+[node name="ClickAudio" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 9 )
+volume_db = -7.0
+
 [connection signal="health_changed" from="Player" to="." method="_on_Player_health_changed"]
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="BuffTimer" to="." method="_on_BuffTimer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_Buttonpause_pressed"]
 [connection signal="button_pressed" from="CanvasLayer/Control2/MenuRect" to="." method="_on_MenuRect_button_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control2/MenuRect/VBoxContainer/ResumeButton" to="CanvasLayer/Control2/MenuRect" method="_on_ResumeButton_focus_entered"]
 [connection signal="pressed" from="CanvasLayer/Control2/MenuRect/VBoxContainer/ResumeButton" to="CanvasLayer/Control2/MenuRect" method="_on_ResumeButton_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control2/MenuRect/VBoxContainer/HomeButton" to="CanvasLayer/Control2/MenuRect" method="_on_HomeButton_focus_entered"]
 [connection signal="pressed" from="CanvasLayer/Control2/MenuRect/VBoxContainer/HomeButton" to="CanvasLayer/Control2/MenuRect" method="_on_HomeButton_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control2/MenuRect/VBoxContainer/QuitButton" to="CanvasLayer/Control2/MenuRect" method="_on_QuitButton_focus_entered"]
 [connection signal="pressed" from="CanvasLayer/Control2/MenuRect/VBoxContainer/QuitButton" to="CanvasLayer/Control2/MenuRect" method="_on_QuitButton_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control2/LoseRect/VBoxContainer/RetryButton" to="." method="_on_RetryButton_focus_entered"]
 [connection signal="pressed" from="CanvasLayer/Control2/LoseRect/VBoxContainer/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control2/LoseRect/VBoxContainer/HomeButton" to="." method="_on_HomeButton_focus_entered"]
 [connection signal="pressed" from="CanvasLayer/Control2/LoseRect/VBoxContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control2/LoseRect/VBoxContainer/QuitButton" to="." method="_on_QuitButton_focus_entered"]
 [connection signal="pressed" from="CanvasLayer/Control2/LoseRect/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control2/StartRec/StartButton" to="." method="_on_Button_pressed"]

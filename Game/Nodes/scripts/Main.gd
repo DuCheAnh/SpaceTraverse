@@ -49,6 +49,9 @@ func _physics_process(delta):
 		_on_Buttonpause_pressed()
 		if OS.get_name() == "Windows":
 			$CanvasLayer/Control2/MenuRect/VBoxContainer/ResumeButton.grab_focus()
+	if Input.is_action_just_pressed("add_health"):
+		$Player.health_changed($Player.current_health+1)
+
 	level_changer()
 func _on_Player_health_changed(value):
 	set_health(value)
@@ -103,13 +106,19 @@ func _on_Player_player_died():
 
 
 func _on_RetryButton_pressed():
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
 	get_tree().reload_current_scene()
 
 func _on_HomeButton_pressed():
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
 	get_tree().paused=false
 	get_tree().change_scene("res://Nodes/MainMenu.tscn")
 
 func _on_QuitButton_pressed():
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
 	get_tree().quit()
 
 func load_hipoints():
@@ -127,13 +136,31 @@ func save_hipoints():
 	pass
 
 func _on_Buttonpause_pressed():
-	$CanvasLayer/Control2/StartRec/startaudio.play()
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
 	get_tree().paused=!get_tree().paused
 	if get_tree().paused:
 		$CanvasLayer/Control2/MenuRect.visible=true
 
 func _on_MenuRect_button_pressed(button):
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
 	if button=="home":
 		_on_HomeButton_pressed()
 	elif button=="quit":
 		_on_QuitButton_pressed()
+
+
+func _on_RetryButton_focus_entered():
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
+
+
+func _on_HomeButton_focus_entered():
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")
+
+
+func _on_QuitButton_focus_entered():
+	$ClickAudio.play()
+	yield($ClickAudio,"finished")

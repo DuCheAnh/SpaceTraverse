@@ -34,8 +34,7 @@ func _physics_process(delta):
 			emit_signal("swipe","left")
 		elif Input.is_action_just_pressed("ui_right"):
 			emit_signal("swipe","right")
-		if Input.is_action_just_pressed("add_health"):
-			health_changed(current_health+1)
+
 #movements
 func _calculate_swipe(swipe_end):
 	if swipe_start == null:

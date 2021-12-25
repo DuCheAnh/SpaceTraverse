@@ -18,6 +18,14 @@ func _on_ExitButton_pressed():
 
 func _on_PlayButton_pressed():
 	$clickaudio.play()
-	yield($clickaudio,"finished")
+	yield(get_tree().create_timer(1.0),"timeout")
 	get_tree().change_scene("res://Node2D.tscn")
 
+
+
+func _on_PlayButton_focus_entered():
+	$clickaudio.play()
+
+
+func _on_ExitButton_focus_entered():
+	$clickaudio.play()

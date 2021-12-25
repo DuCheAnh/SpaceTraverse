@@ -5,7 +5,7 @@ extends Area2D
 # var a = 2
 # var b = "text"
 var speed=300
-var health=3
+var health=2
 
 func set_speed(value):
 	speed*=value
