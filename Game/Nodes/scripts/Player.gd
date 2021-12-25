@@ -34,9 +34,11 @@ func _physics_process(delta):
 			emit_signal("swipe","left")
 		elif Input.is_action_just_pressed("ui_right"):
 			emit_signal("swipe","right")
+		if Input.is_action_just_pressed("add_health"):
+			health_changed(current_health+1)
 #movements
 func _calculate_swipe(swipe_end):
-	if swipe_start == null: 
+	if swipe_start == null:
 		return
 	var swipe = swipe_end - swipe_start
 	if abs(swipe.x) > minimum_drag:
@@ -51,7 +53,7 @@ func _unhandled_input(event):
 		charging=true
 	if event.is_action_released("click") or event.is_action_released("ui_accept"):
 		_calculate_swipe(get_global_mouse_position())
-		charging=false	
+		charging=false
 func _on_Player_swipe(direction):
 	var vpx=get_viewport_rect().size.x-90;
 	if direction=="right":
@@ -63,14 +65,13 @@ func _on_Player_swipe(direction):
 
 #Health
 func health_changed(value):
-	current_health=value
+	current_health=clamp(value,0,max_health)
 	emit_signal("health_changed",current_health)
 	pass
 func destroy(time,power):
 	get_parent().get_node("Shake").screen_shake(time,power,200)
 	$AnimatedSprite.position=Vector2(-25,-35)
 	$AnimatedSprite.play("explode")
-	$CollisionShape2D.disabled=true
 	$CollisionShape2D.set_deferred("disabled",true)
 	$deadaudio.play()
 	yield($AnimatedSprite,"animation_finished")
@@ -109,4 +110,4 @@ func _on_Player_area_entered(area):
 			current_health=clamp(current_health+1,0,max_health)
 			health_changed(current_health)
 		elif area.get_name()=="star":
-			get_parent().add_point(1000)
+			get_parent().add_point(3000)

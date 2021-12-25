@@ -1,6 +1,8 @@
 extends Control
 
 func _ready():
+	if OS.get_name() == "Windows":
+		$Control/VBoxContainer/PlayButton.grab_focus()
 	pass
 
 func _process(delta):

@@ -17,9 +17,15 @@ func set_health(value):
 		hbar.rect_size.x=hbar.texture.get_size().x*value
 	if value<=0:
 		hbar.visible=false
+	if value == 8:
+		hbar.modulate = Color(1, 1, 0.5)
+	elif value > 1:
+		hbar.modulate = Color(1, 1, 1)
+	else:
+		hbar.modulate = Color(1, 0.5, 0.5)
 func _ready():
 	randomize()
-	if hipoints!=0: 
+	if hipoints!=0:
 		load_hipoints()
 	set_health(3)
 	$CanvasLayer/Control/Label.text="Speed " + String(level)
@@ -30,18 +36,24 @@ func _ready():
 	$CanvasLayer/Control2/LoseRect.visible=false
 	$Timer.wait_time=ast_waittime
 	$Timer.start()
+	if OS.get_name() == "Windows":
+		$CanvasLayer/Control2/StartRec/StartButton.grab_focus()
 	get_tree().paused=true
 func _physics_process(delta):
 	if $AudioStreamPlayer.playing==false:
 		$AudioStreamPlayer.play()
 	$CanvasLayer/Control/Point.text=String(points)
 	if Input.is_action_just_pressed("ui_focus_next"):
-		Engine.time_scale+=1
+		Engine.time_scale+=0.1
+	if Input.is_action_just_pressed("pause_game"):
+		_on_Buttonpause_pressed()
+		if OS.get_name() == "Windows":
+			$CanvasLayer/Control2/MenuRect/VBoxContainer/ResumeButton.grab_focus()
 	level_changer()
 func _on_Player_health_changed(value):
 	set_health(value)
 func _on_Timer_timeout():
-	$CanvasLayer/Control/Label.text="Speed " + String(level)
+	$CanvasLayer/Control/Label.text="Level " + String(int((Engine.time_scale-1)*10)+1)
 	count+=1
 	var pos = Vector2 (rand_range(50,400),0)
 	var inst=asteroid.instance()
@@ -54,9 +66,9 @@ func add_point(value):
 func level_changer():
 	if (count==20):
 		count=0
-		Engine.time_scale+=0.2
+		Engine.time_scale+=0.1
 		level+=1
-	
+
 func set_bullet(value):
 	bullet_count=value
 	get_node("CanvasLayer/Control/PowerBar").set_current(value)
@@ -79,13 +91,16 @@ func _on_Button_pressed():
 
 func _on_Player_player_died():
 	yield(get_tree().create_timer(1),"timeout")
-	load_hipoints()
-	if (points>hipoints):
-		hipoints=points
-		save_hipoints()
+#	load_hipoints()
+#	if (points>hipoints):
+#		hipoints=points
+#		save_hipoints()
 	$CanvasLayer/Control2/LoseRect/PointsLabel.text="Points: " + String(points)
 	$CanvasLayer/Control2/LoseRect/HiPointLabel.text="Hi-Scỏores: " +String(hipoints)
+	if OS.get_name() == "Windows":
+		$CanvasLayer/Control2/LoseRect/VBoxContainer/RetryButton.grab_focus()
 	$CanvasLayer/Control2/LoseRect.visible=true
+
 
 func _on_RetryButton_pressed():
 	get_tree().reload_current_scene()
@@ -93,7 +108,7 @@ func _on_RetryButton_pressed():
 func _on_HomeButton_pressed():
 	get_tree().paused=false
 	get_tree().change_scene("res://Nodes/MainMenu.tscn")
-	
+
 func _on_QuitButton_pressed():
 	get_tree().quit()
 

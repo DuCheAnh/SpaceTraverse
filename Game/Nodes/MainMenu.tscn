@@ -1,19 +1,20 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Sprites/SpaceShooterRedux/Bonus/kenvector_future_thin.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://demo/Pressed.tres" type="StyleBox" id=1]
 [ext_resource path="res://MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://audio/SkyFire (Title Screen).ogg" type="AudioStream" id=3]
 [ext_resource path="res://Sprites/BlankSpace.tres" type="Texture" id=4]
-[ext_resource path="res://Sprites/SpaceShooterRedux/Bonus/kenvector_future.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://demo/Focus.tres" type="StyleBox" id=5]
 [ext_resource path="res://audio/click.wav" type="AudioStream" id=6]
+[ext_resource path="res://demo/StarjediSpecialEdition-9Bqy.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://BtnTheme.tres" type="DynamicFont" id=8]
+[ext_resource path="res://demo/Normal.tres" type="StyleBox" id=9]
 
 [sub_resource type="DynamicFont" id=1]
-size = 50
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 40
-font_data = ExtResource( 1 )
+size = 75
+outline_size = 3
+outline_color = Color( 1, 0.956863, 0.501961, 1 )
+font_data = ExtResource( 7 )
 
 [node name="MainMenu" type="Control"]
 pause_mode = 2
@@ -43,38 +44,65 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Control"]
-margin_left = 57.0
-margin_top = 100.0
-margin_right = 392.0
-margin_bottom = 217.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = 1.0
+margin_right = 430.0
+margin_bottom = 244.0
+custom_colors/font_color = Color( 0.0941176, 0.0745098, 0.156863, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "SPACE 
-TRAVERSE"
+text = "SPACE
+SHooTER"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton" type="Button" parent="Control"]
-margin_left = 110.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+margin_left = 105.5
 margin_top = 300.0
-margin_right = 340.0
-margin_bottom = 351.0
-custom_fonts/font = SubResource( 2 )
+margin_right = 344.5
+margin_bottom = 444.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" type="Button" parent="Control/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 239, 68 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
 custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 8 )
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 9 )
 text = "Play"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExitButton" type="Button" parent="Control"]
-margin_left = 110.0
-margin_top = 380.0
-margin_right = 340.0
-margin_bottom = 431.0
-custom_fonts/font = SubResource( 2 )
+[node name="ExitButton" type="Button" parent="Control/VBoxContainer"]
+margin_top = 118.0
+margin_right = 239.0
+margin_bottom = 186.0
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
 custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 8 )
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 9 )
 text = "Exit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -85,5 +113,6 @@ stream = ExtResource( 3 )
 
 [node name="clickaudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-[connection signal="pressed" from="Control/PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="pressed" from="Control/ExitButton" to="." method="_on_ExitButton_pressed"]
+
+[connection signal="pressed" from="Control/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

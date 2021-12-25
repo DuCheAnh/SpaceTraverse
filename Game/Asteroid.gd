@@ -24,7 +24,7 @@ func _ready():
 	else:
 		$CSbig.disabled=false
 	$AnimatedSprite.play(String(int(count)))
-	
+
 func _physics_process(delta):
 	move(delta)
 	rotation_degrees+=rand_range(0,1)
@@ -43,11 +43,9 @@ func _on_Asteroid_area_entered(area):
 func destroy(time,power,actor):
 	if actor=="player":
 		get_parent().get_parent().get_node("Shake").screen_shake(time,power,200)
-		get_parent().get_parent().add_point(100)
+		get_parent().get_parent().add_point(500)
 		$AudioStreamPlayer2D.play()
-	$CSbig.disabled=true
 	$CSbig.set_deferred("disabled",true)
-	$CSsmall.disabled=true
 	$CSsmall.set_deferred("disabled",true)
 	$AnimatedSprite.scale=Vector2(1.5,1.5)
 	$AnimatedSprite.play("explosion")

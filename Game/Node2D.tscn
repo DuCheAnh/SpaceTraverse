@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Strip And GIF/space1_4-frames.png" type="Texture" id=2]
@@ -8,11 +8,15 @@
 [ext_resource path="res://Sprites/SpaceShooterRedux/PNG/UI/playerLife1_blue.png" type="Texture" id=6]
 [ext_resource path="res://Nodes/scripts/Main.gd" type="Script" id=7]
 [ext_resource path="res://Nodes/scripts/Shake.gd" type="Script" id=8]
-[ext_resource path="res://Sprites/SpaceShooterRedux/Bonus/kenvector_future_thin.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://Nodes/HealthBar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://audio/Alone Against Enemy.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Nodes/scripts/MenuRect.gd" type="Script" id=12]
 [ext_resource path="res://audio/start.wav" type="AudioStream" id=13]
+[ext_resource path="res://demo/Pressed.tres" type="StyleBox" id=14]
+[ext_resource path="res://demo/Focus.tres" type="StyleBox" id=15]
+[ext_resource path="res://demo/StarjediSpecialEdition-9Bqy.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://demo/Normal.tres" type="StyleBox" id=17]
+[ext_resource path="res://BtnTheme.tres" type="DynamicFont" id=18]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -47,40 +51,47 @@ animations = [ {
 colors = PoolColorArray( 1, 1, 1, 1, 0.368627, 0.247059, 0.419608, 1 )
 
 [sub_resource type="DynamicFont" id=7]
-font_data = ExtResource( 9 )
+font_data = ExtResource( 16 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.2601, 0.204, 0.51, 1 )
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.2601, 0.204, 0.51, 1 )
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.12549, 0.101961, 0.211765, 1 )
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.972549, 0.929412, 0.490196, 1 )
 
 [sub_resource type="DynamicFont" id=8]
-font_data = ExtResource( 9 )
+size = 20
+font_data = ExtResource( 16 )
 
 [sub_resource type="DynamicFont" id=9]
-font_data = ExtResource( 9 )
+font_data = ExtResource( 16 )
 
 [sub_resource type="DynamicFont" id=10]
-size = 60
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=11]
-size = 32
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=12]
-size = 50
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=13]
-size = 32
-font_data = ExtResource( 9 )
+size = 70
+font_data = ExtResource( 16 )
 
 [sub_resource type="DynamicFont" id=14]
 size = 32
-font_data = ExtResource( 9 )
+font_data = ExtResource( 16 )
 
 [sub_resource type="DynamicFont" id=15]
-font_data = ExtResource( 9 )
+font_data = ExtResource( 16 )
 
 [sub_resource type="DynamicFont" id=16]
-size = 32
-font_data = ExtResource( 9 )
+size = 25
+font_data = ExtResource( 16 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 7 )
@@ -160,33 +171,40 @@ margin_bottom = 59.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Control"]
 pause_mode = 2
-margin_left = 380.0
-margin_right = 450.0
-margin_bottom = 25.0
+margin_left = 372.0
+margin_top = 8.0
+margin_right = 442.0
+margin_bottom = 36.0
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
 custom_fonts/font = SubResource( 7 )
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/normal = SubResource( 19 )
 text = "Pause"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Point" type="Label" parent="CanvasLayer/Control"]
-margin_left = 344.0
-margin_top = 40.0
-margin_right = 448.0
-margin_bottom = 58.0
+margin_top = 32.0
+margin_right = 447.0
+margin_bottom = 64.0
 custom_fonts/font = SubResource( 8 )
 text = "point"
-align = 2
+align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="CanvasLayer/Control"]
-margin_left = 205.0
-margin_top = 30.0
-margin_right = 245.0
-margin_bottom = 44.0
+margin_top = 60.0
+margin_right = 42.0
+margin_bottom = 78.0
 custom_fonts/font = SubResource( 9 )
 text = "font"
 align = 1
@@ -212,53 +230,85 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="CanvasLayer/Control2/MenuRect"]
 anchor_left = 0.5
-anchor_top = 0.154
 anchor_right = 0.5
-anchor_bottom = 0.154
-margin_left = -126.0
-margin_top = -13.2
-margin_right = 126.0
-margin_bottom = 54.8
+margin_left = -147.5
+margin_top = 93.0
+margin_right = 147.5
+margin_bottom = 206.0
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
 custom_fonts/font = SubResource( 10 )
-text = "PAUSED"
+text = "Paused"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResumeButton" type="Button" parent="CanvasLayer/Control2/MenuRect"]
-margin_left = 115.0
-margin_top = 250.0
-margin_right = 335.0
-margin_bottom = 310.0
-custom_fonts/font = SubResource( 11 )
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control2/MenuRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -119.5
+margin_top = -127.0
+margin_right = 119.5
+margin_bottom = 127.0
+custom_constants/separation = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/Control2/MenuRect/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 239, 68 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 18 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
 text = "Resume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HomeButton" type="Button" parent="CanvasLayer/Control2/MenuRect"]
-anchor_top = -0.00625008
-anchor_bottom = -0.00625008
-margin_left = 115.0
-margin_top = 345.0
-margin_right = 335.0
-margin_bottom = 405.0
-custom_fonts/font = SubResource( 11 )
+[node name="HomeButton" type="Button" parent="CanvasLayer/Control2/MenuRect/VBoxContainer"]
+margin_top = 93.0
+margin_right = 239.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 239, 68 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 18 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
 text = "Home"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/Control2/MenuRect"]
-anchor_top = -0.00625008
-anchor_bottom = -0.00625008
-margin_left = 115.0
-margin_top = 435.0
-margin_right = 335.0
-margin_bottom = 495.0
-custom_fonts/font = SubResource( 11 )
-text = "Quit"
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control2/MenuRect/VBoxContainer"]
+margin_top = 186.0
+margin_right = 239.0
+margin_bottom = 254.0
+rect_min_size = Vector2( 239, 68 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 18 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
+text = "quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -277,43 +327,11 @@ margin_left = 5.0
 margin_top = 110.0
 margin_right = 449.0
 margin_bottom = 167.0
-custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_fonts/font = ExtResource( 18 )
 text = "Ship destroyed"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RetryButton" type="Button" parent="CanvasLayer/Control2/LoseRect"]
-margin_left = 115.0
-margin_top = 250.0
-margin_right = 335.0
-margin_bottom = 310.0
-custom_fonts/font = SubResource( 13 )
-text = "Retry"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HomeButton" type="Button" parent="CanvasLayer/Control2/LoseRect"]
-margin_left = 115.0
-margin_top = 340.0
-margin_right = 335.0
-margin_bottom = 400.0
-custom_fonts/font = SubResource( 13 )
-text = "Home"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="QuitButton" type="Button" parent="CanvasLayer/Control2/LoseRect"]
-margin_left = 115.0
-margin_top = 430.0
-margin_right = 335.0
-margin_bottom = 490.0
-custom_fonts/font = SubResource( 13 )
-text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -322,19 +340,94 @@ __meta__ = {
 margin_top = 170.0
 margin_right = 450.0
 margin_bottom = 206.0
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
 custom_fonts/font = SubResource( 14 )
 text = "123"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HiPointLabel" type="Label" parent="CanvasLayer/Control2/LoseRect"]
-margin_top = 200.0
+margin_top = 220.0
 margin_right = 450.0
-margin_bottom = 236.0
+margin_bottom = 272.0
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
 custom_fonts/font = SubResource( 14 )
 text = "123"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control2/LoseRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -119.5
+margin_top = -101.0
+margin_right = 119.5
+margin_bottom = 101.0
+custom_constants/separation = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RetryButton" type="Button" parent="CanvasLayer/Control2/LoseRect/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 239, 68 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 18 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
+text = "Retry"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HomeButton" type="Button" parent="CanvasLayer/Control2/LoseRect/VBoxContainer"]
+margin_top = 93.0
+margin_right = 239.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 0, 58 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 18 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
+text = "Home"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control2/LoseRect/VBoxContainer"]
+margin_top = 186.0
+margin_right = 239.0
+margin_bottom = 254.0
+rect_min_size = Vector2( 0, 68 )
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
+custom_fonts/font = ExtResource( 18 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
+text = "quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -356,9 +449,7 @@ margin_right = 278.811
 margin_bottom = 58.8108
 custom_fonts/font = SubResource( 15 )
 text = "Hold to Fly
-Swipe to lean and 
- fly away from the
-Inevitable death"
+Swipe to lean"
 align = 1
 valign = 1
 __meta__ = {
@@ -367,11 +458,23 @@ __meta__ = {
 
 [node name="StartButton" type="Button" parent="CanvasLayer/Control2/StartRec"]
 pause_mode = 2
-margin_left = 55.5946
-margin_top = 90.7
-margin_right = 235.595
-margin_bottom = 132.7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0002
+margin_top = 12.5
+margin_right = 90.0002
+margin_bottom = 59.5
+custom_colors/font_color_focus = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color = Color( 0.780392, 0.796078, 0.898039, 1 )
+custom_colors/font_color_hover = Color( 0.12549, 0.0980392, 0.207843, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.141176, 0.301961, 1 )
 custom_fonts/font = SubResource( 16 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 17 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -387,16 +490,17 @@ position = Vector2( 0, 776.591 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 volume_db = -7.0
+
 [connection signal="health_changed" from="Player" to="." method="_on_Player_health_changed"]
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="BuffTimer" to="." method="_on_BuffTimer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_Buttonpause_pressed"]
 [connection signal="button_pressed" from="CanvasLayer/Control2/MenuRect" to="." method="_on_MenuRect_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/ResumeButton" to="CanvasLayer/Control2/MenuRect" method="_on_ResumeButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/HomeButton" to="CanvasLayer/Control2/MenuRect" method="_on_HomeButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/QuitButton" to="CanvasLayer/Control2/MenuRect" method="_on_QuitButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/RetryButton" to="." method="_on_RetryButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/HomeButton" to="." method="_on_HomeButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/VBoxContainer/ResumeButton" to="CanvasLayer/Control2/MenuRect" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/VBoxContainer/HomeButton" to="CanvasLayer/Control2/MenuRect" method="_on_HomeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/MenuRect/VBoxContainer/QuitButton" to="CanvasLayer/Control2/MenuRect" method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/VBoxContainer/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/VBoxContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control2/LoseRect/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control2/StartRec/StartButton" to="." method="_on_Button_pressed"]
