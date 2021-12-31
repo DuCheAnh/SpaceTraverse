@@ -25,8 +25,7 @@ func set_health(value):
 		hbar.modulate = Color(1, 0.5, 0.5)
 func _ready():
 	randomize()
-	if hipoints!=0:
-		load_hipoints()
+#	load_hipoints()
 	set_health(3)
 	$CanvasLayer/Control/Label.text="Speed " + String(level)
 	set_bullet(bullet_count)
